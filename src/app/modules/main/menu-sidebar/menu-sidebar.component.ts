@@ -29,7 +29,54 @@ export class MenuSidebarComponent implements OnInit {
         });
         this.user = this.AuthService.user;
         let role = this.AuthService.getRole();
-        console.log(this.menu)
+        console.log(this.menu,role)
+        if (role.toString() == "UserPLII"){
+            this.menu = [
+                
+                        {
+                            name: 'Dashboard',
+                            iconClasses: 'far fa-address-book',
+                            path: ['/']
+                        },
+                         
+                        {
+                            name: 'Jadwal Lelang',
+                            iconClasses: 'far fa-address-book',
+                            path: ['/jadwallist']
+                        },
+            
+                        {
+                            name: 'Transaksi Lelang',
+                            iconClasses: 'fas fa-file',
+                            path: ['/transaksilist']
+                        },
+                        {
+                            name: 'Penyetoran Bea',
+                            iconClasses: 'fas fa-file',
+                            path: ['/bealist']
+                        },
+                        {
+                            name: 'Penyetoran BPHTB',
+                            iconClasses: 'fas fa-file',
+                            path: ['/bphlist']
+                        },
+                        {
+                            name: 'Kertas Sekuriti',
+                            iconClasses: 'fas fa-file',
+                            path: ['/kslist']
+                        }
+            ]
+
+        }else if (role.toString() == "P2PK"){
+            this.menu = [ 
+                        {
+                            name: 'Back Office',
+                            iconClasses: 'far fa-address-book',
+                            path: ['/dash-bo']
+                        }  
+            ]
+        }
+        
         
     }
 }
@@ -48,6 +95,11 @@ export const MENU = [
                 name: 'Dashboard',
                 iconClasses: 'far fa-address-book',
                 path: ['/']
+            },
+            {
+                name: 'Back Office',
+                iconClasses: 'far fa-address-book',
+                path: ['/dash-bo']
             },
             {
                 name: 'Jadwal Lelang',

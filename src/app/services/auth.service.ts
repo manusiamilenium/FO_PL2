@@ -142,13 +142,13 @@ export class AuthService {
   }
   loginKemenkeu() {
      
-    this.loginByAuth({email : "P2PK@AllPerizinan.com", password : "$Plendid123"})
+    this.loginByAuth({email : "P2PK@pelaporanplii.com", password : "$Plendid123"})
     this.toastr.info("berhasil");
     this.router.navigate(['/dash-bo']);
   }
   loginKasubbid() {
      
-    this.loginByAuth({email : "kasubbid@AllPerizinan.com", password : "$Plendid123"})
+    this.loginByAuth({email : "admin@pelaporanplii.com", password : "$Plendid123"})
     this.toastr.info("berhasil");
     this.router.navigate(['/dash-bo']);
   }

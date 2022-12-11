@@ -29,7 +29,8 @@ export class BeadetailComponent implements OnInit {
   onLoadData(){
     this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/LaporanPenyetoranBeaLelang", this.api.generateHeader()).subscribe((result: any) => {
 
-      this.listTrans = result.data
+      //this.listTrans = result.data
+      this.listTrans = result.data.filter(trans => [this.idtrans].includes(trans.transaksiLelangId))
       console.log(result)
       if (this.listTrans.length > 0) {
         this.isempty = false
@@ -37,4 +38,19 @@ export class BeadetailComponent implements OnInit {
       }
     }, error => { });
   }
+  onKirim(idtrans) {
+    if (confirm("Apakah anda yakin ingin mengirim data ke PPPK?")) {
+      console.log(idtrans);
+      this.http.put("https://pelaporanpliiapi.azurewebsites.net/api/LaporanPenyetoranBeaLelang/Kirim?id=" + idtrans, null, this.api.generateHeader()).subscribe(data => {
+        console.log("post ressult ", data);
+        this.toastr.info("Transaksi Terkirim ke Back Office PPPK")
+        this.onLoadData()
+
+      }, error => {
+        this.toastr.error("Tidak dapat mengirim data, coba kembali nanti")
+        console.log(error);
+      });
+    }
+  }
+
 }

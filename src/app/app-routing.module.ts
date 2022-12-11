@@ -31,6 +31,7 @@ import { BealandingComponent } from '@pages/bealanding/bealanding.component';
 import { KslistComponent } from '@pages/kslist/kslist.component';
 import { KsdetailComponent } from '@pages/ksdetail/ksdetail.component';
 import { KsaddComponent } from '@pages/ksadd/ksadd.component';
+import { BolandingComponent } from '@pages/bo/bolanding/bolanding.component';
 
 const routes: Routes = [
     {
@@ -127,6 +128,14 @@ const routes: Routes = [
                 component: BeatambahComponent
             },
             {
+                path: 'beatambah/:id',
+                component: BeatambahComponent
+            },
+            {
+                path: 'beatambah/preview/:idpreview',
+                component: BeatambahComponent
+            },
+            {
                 path: 'bphlist',
                 component: BphlistComponent
             },
@@ -149,6 +158,10 @@ const routes: Routes = [
             {
                 path: 'ksadd/periode/:idperiode',
                 component: KsaddComponent
+            },
+            {
+                path: 'dash-bo',
+                component: BolandingComponent
             },
         ]
     },

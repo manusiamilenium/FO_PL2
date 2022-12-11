@@ -3,12 +3,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Bea Lelang</h1>
+                <h1>Jadwal Lelang</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Bea Detail</li>
+                    <li class="breadcrumb-item active">Jadwal Lelang Detail : 2022</li>
                 </ol>
             </div>
         </div>
@@ -23,11 +23,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <a href="/beatambah/trans/{{idtrans}}">
-                        <app-button class="mb-2" [block]="true" [loading]="false" [disabled]="false" [icon]="'blank'">
-                            Tambah Data Bea Lelang
-                        </app-button>
-                    </a>
+                    
                 </div>
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -46,48 +42,49 @@
                     <thead>
                         <tr>
                             <th>No. </th>
-                            <th>No. Risalah</th>
-                            <th>Jenis Transaksi</th>
-                            <th>No. Transaksi</th>
-                            <th>No. BPN</th>
-                            <th>Kode Map</th>
-                            <th>Tgl. Setor</th>
-                            <th>Tgl. Lelang</th>
+                            <th>No Register </th>
+                            <th>Rencana Tanggal</th>
+                            <th>Penjual</th>
+                            <th>Sifat</th>
+                            <th>Tempat</th>
+                            <th>No. Surat Penetapan</th>
+                            <th>Tgl. Surat Penetapan</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <div *ngIf="isempty;else other_content">
                             <tr>
-                                <td colspan="9" align="center"> Data Bea Lelang kosong silahkan tambah data</td>
+                                <td colspan="7" align="center"> Jadwal kosong belum ada pengiriman data dari FO</td>
                             </tr>
                         </div>
                         <ng-template #other_content>
-                            <tr *ngFor="let data of listTrans; let i = index">
+                            <tr *ngFor="let data of listJadwal; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{data.nomorRisalahLelang}}</td>
-                                <td>{{data.jenisTransaksi}}</td>
-                                <td>{{data.nomorTransaksi }}</td>
-                                <td>{{data.nomorBPN}}</td>
-                                <td>{{data.kodeMAP}}</td>
-                                <td>{{data.kodeMAP}}</td>
-                                <td>{{data.kodeMAP}}</td>
-                                <td>
-                                    <a *ngIf="data.statusPengiriman=='Draft Permohonan'" class="btn  btn-s"
-                                        href="/beatambah/{{data.id}}">
-                                        <i class="fas fa-edit"></i> Edit
+                                <td>{{data.nomerRegistrasi}}</td>
+                                <td>{{data.tanggalLelang}}</td>
+                                <td>{{data.namaPenjual}}</td>
+                                <td>{{data.sifatLelang}}</td>
+                                <td>{{data.tempatLelang}}</td>
+                                <td>{{data.nomorSuratPenetapanJadwalLelang}}</td>
+                                <td>{{data.tanggalSuratPenetapanJadwalLelang}}</td>
+                                <td>{{formatStatus(data.statusPengiriman)}}</td>
+                                <td><a *ngIf="data.statusPengiriman!='Draft Permohonan'" class="btn  btn-s" href="/jadwaladd/{{data.id}}">
+                                        <i class="fas fa-edit"></i> Buka Akses
                                     </a>
-                                    <a *ngIf="data.statusPengiriman=='Draft Permohonan'" class="btn btn-s"
-                                        (click)="onKirim(data.id)">
-                                        <i class="fas fa-envelope"></i> Kirim
-                                    </a>
+                                    
 
-                                    <a href="/beatambah/preview/{{data.id}}" class="btn btn-s">
+                                    <a href="/jadwaladd/preview/{{data.id}}" class="btn btn-s"> 
                                         <i class="fas fa-inbox"></i> Detail
-                                    </a>
+                                    </a>  
+                                    <a href="/jadwaladd/preview/{{data.id}}" class="btn btn-s"> 
+                                        <i class="fas fa-inbox"></i> Transaksi
+                                    </a>  
                                 </td>
                             </tr>
                         </ng-template>
+
                     </tbody>
                 </table>
             </div>
