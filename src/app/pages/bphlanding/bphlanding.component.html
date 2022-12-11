@@ -23,12 +23,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <a href="/bphadd/trans/{{idtrans}}" >
-                    <app-button class="mb-2" [block]="true" [loading]="false" [disabled]="false"
-                        [icon]="'blank'">
-                        Tambah BPHTB
-                    </app-button>
-                </a>
+                     Daftar Transaksi Lelang Tanah atau Tanah dan Bangunan
                 </div>
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -73,24 +68,9 @@
                             <td>{{data.tanggalRisalahLelang}}</td>
                             <td>{{data.namaPenjual}}</td> 
                             <td>{{data.tanggalLelang}}</td>
-                            <td><a href="/transaksiadd" >
-                                <app-button class="mb-1" [block]="true" [loading]="false" [disabled]="false"
-                                    [icon]="'blank'">
-                                    Edit
-                                </app-button>
-                                <a href="/bphadd" >
-                                    <app-button class="mb-1" [block]="true" [loading]="false" [disabled]="false"
-                                        [icon]="'blank'">
-                                        Kirim
-                                    </app-button>
-                                </a>
-                                <a href="/bphadd" >
-                                    <app-button class="mb-1" [block]="true" [loading]="false" [disabled]="false"
-                                        [icon]="'blank'">
-                                        Detail
-                                    </app-button>
-                                </a>
-                            </a></td>
+                            <td><a href="/bphdetail/{{data.id}}" class="btn btn-s"> 
+                                <i class="fas fa-inbox"></i> Detail
+                            </a>  </td>
                         </tr>
                     </ng-template>
                     </tbody>

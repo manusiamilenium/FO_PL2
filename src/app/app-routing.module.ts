@@ -32,6 +32,7 @@ import { KslistComponent } from '@pages/kslist/kslist.component';
 import { KsdetailComponent } from '@pages/ksdetail/ksdetail.component';
 import { KsaddComponent } from '@pages/ksadd/ksadd.component';
 import { BolandingComponent } from '@pages/bo/bolanding/bolanding.component';
+import { BphlandingComponent } from '@pages/bphlanding/bphlanding.component';
 
 const routes: Routes = [
     {
@@ -140,12 +141,20 @@ const routes: Routes = [
                 component: BphlistComponent
             },
             {
-                path: 'bphdetail/:idperiode',
+                path: 'bphdetail/:idtrans',
                 component: BphdetailComponent
             },
             {
-                path: 'bphadd/periode/:idperiode',
+                path: 'bphadd/trans/:idtrans',
                 component: BphaddComponent
+            },
+            {
+                path: 'bphadd/:id',
+                component: BphaddComponent
+            },
+            {
+                path: 'bphlanding/:idperiode',
+                component:BphlandingComponent
             },
             {
                 path: 'kslist',
