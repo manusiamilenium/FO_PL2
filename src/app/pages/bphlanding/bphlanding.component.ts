@@ -30,6 +30,7 @@ export class BphlandingComponent implements OnInit {
       //this.listTrans = result.data
       this.listTrans = result.data.filter(trans => [this.idperiode].includes(trans.periodeLaporanId))
       this.listTrans = this.listTrans.filter(trans => ["Tanah","Tanah dan Bangunan"].includes(trans.tipeBarang))
+      this.listTrans = this.listTrans.filter(trans => ["TAP","Laku","Ditahan","Wan Prestasi"].includes(trans.status))
       console.log(result)
       if (this.listTrans.length > 0) {
         this.isempty = false

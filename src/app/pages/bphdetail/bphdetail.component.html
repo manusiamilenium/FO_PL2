@@ -47,13 +47,13 @@
                     <thead>
                         <tr>
                             <th>No. </th>
-                            <th>Status</th>
-                            <th>No Register </th>
-                            <th>Tgl. Register </th>
-                            <th>No. Risalah</th>
-                            <th>Tanggal Risalah</th>
-                            <th>Penjual</th> 
-                            <th>Tgl. Lelang</th>
+                            <th>Status</th> 
+                            <th>Status Penyampaian</th> 
+                            <th>Tgl. Penyampaian Risalah </th>
+                            <th>Lot</th>
+                            <th>Luas Tanah</th>
+                            <th>Luas Bangunan</th> 
+                            <th>NJOP/NOP</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -66,31 +66,26 @@
                         <ng-template #other_content>
                         <tr *ngFor="let data of listTrans; let i = index" >
                             <td>{{i+1}}</td>
-                            <td>{{data.status}}</td>
-                            <td>{{data.nomerRegistrasi}}</td>
-                            <td>{{data.tanggalRegistrasi}}</td>
-                            <td>{{data.nomorRisalahLelang}}</td>
-                            <td>{{data.tanggalRisalahLelang}}</td>
-                            <td>{{data.namaPenjual}}</td> 
-                            <td>{{data.tanggalLelang}}</td>
-                            <td><a href="/transaksiadd" >
-                                <app-button class="mb-1" [block]="true" [loading]="false" [disabled]="false"
-                                    [icon]="'blank'">
-                                    Edit
-                                </app-button>
-                                <a href="/bphadd" >
-                                    <app-button class="mb-1" [block]="true" [loading]="false" [disabled]="false"
-                                        [icon]="'blank'">
-                                        Kirim
-                                    </app-button>
-                                </a>
-                                <a href="/bphadd" >
-                                    <app-button class="mb-1" [block]="true" [loading]="false" [disabled]="false"
-                                        [icon]="'blank'">
-                                        Detail
-                                    </app-button>
-                                </a>
-                            </a></td>
+                            <td>{{data.statusHakAtasTanah}}</td>
+                            <td>{{formatStatus(data.statusPengiriman)}}</td>
+                            <td>{{data.tanggalPenyampaianPetikanRisalahRapat}}</td>
+                            <td>{{data.lot}}</td>
+                            <td>{{data.luasTanah}}</td>
+                            <td>{{data.luasBangunan}}</td>
+                            <td>{{data.njopnop}}</td> 
+                            <td> <a *ngIf="data.statusPengiriman=='Draft Permohonan'" class="btn  btn-s"
+                                        href="/bphadd/{{data.id}}">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a *ngIf="data.statusPengiriman=='Draft Permohonan'" class="btn btn-s"
+                                        (click)="onKirim(data.id)">
+                                        <i class="fas fa-envelope"></i> Kirim
+                                    </a>
+
+                                    <a href="/bphadd/preview/{{data.id}}" class="btn btn-s">
+                                        <i class="fas fa-inbox"></i> Detail
+                                    </a>
+                            </td>
                         </tr>
                     </ng-template>
                     </tbody>

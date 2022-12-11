@@ -17,7 +17,7 @@ export class BphaddComponent implements OnInit {
   public isEditMode: boolean
   public isPreview: boolean
   public bphForm: UntypedFormGroup
-  public idperiode: any
+  public idtrans: any
   public idpreview: any
   public bph: any
   public listTrans: Array<any>
@@ -36,14 +36,15 @@ export class BphaddComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.idperiode = this.route.snapshot.params['idperiode'];
+    this.idtrans = this.route.snapshot.params['idtrans'];
     this.idpreview = this.route.snapshot.params['idpreview'];
-    this.isAddMode = this.idperiode ? true : false;
+    this.isAddMode = this.idtrans ? true : false;
     this.isPreview = this.idpreview ? true : false;
     this.isEditMode = this.id ? true : false;
+
     this.alamatService.getAllProvinsi().subscribe((r) => { this.provinsi = r; })
     this.bphForm = new UntypedFormGroup({
-      transaksiLelangId: new UntypedFormControl(null, Validators.required),
+       
       lot: new UntypedFormControl(null, Validators.required),
       letaktanahBangunanLong: new UntypedFormControl(null, Validators.required),
       letaktanahBangunanLat: new UntypedFormControl(null, Validators.required),
@@ -59,10 +60,7 @@ export class BphaddComponent implements OnInit {
       tanggalPenyampaianPetikanRisalahRapat: new UntypedFormControl(null, Validators.required),
       keterangan: new UntypedFormControl(null, Validators.required),
     });
-    this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/TransaksiLelang", this.api.generateHeader()).subscribe((result: any) => {
-      this.listTrans = result.data
-      console.log(result) 
-    }, error => { });
+    this.onSelectRegister(this.idtrans)
 
     /*
     "transaksiLelangId": "string",
@@ -88,7 +86,7 @@ export class BphaddComponent implements OnInit {
       this.http.post("https://pelaporanpliiapi.azurewebsites.net/api/LaporanRisalahLelangPengenaanBPHTB", this.generateBodyReq(this.bphForm.value), this.api.generateHeader()).subscribe(data => {
         console.log("post ressult ", data);
         this.toastr.info("Data Tersimpan")
-        this.router.navigate(['/bphdetail/' + this.idperiode]);
+        this.router.navigate(['/bphdetail/' + this.idtrans]);
 
       }, error => {
         this.toastr.error("Tidak dapat menyimpan BPHTB, Periksa kembali isian Anda");
@@ -119,7 +117,7 @@ export class BphaddComponent implements OnInit {
   generateBodyReq(formValue: any) {
     let id = this.id === "" ? uuidv4() : this.id
     let bodyreq = {
-      transaksiLelangId: formValue.transaksiLelangId,
+      transaksiLelangId: this.idtrans,
       lot: parseInt(formValue.lot),
       letaktanahBangunanLong: formValue.letaktanahBangunanLong,
       letaktanahBangunanLat: formValue.letaktanahBangunanLat,

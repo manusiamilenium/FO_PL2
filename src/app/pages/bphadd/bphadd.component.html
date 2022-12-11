@@ -54,19 +54,10 @@
                         <div class="tab-pane fade active show" id="custom-tabs-three-home" role="tabpanel"
                             aria-labelledby="custom-tabs-three-home-tab">
                             <div class="row">
-                                <div class="form-group col-xl-6 ">
-                                    <label for="exampleInputEmail1">Nomor Risalah Lelang</label>
-                                    <select class="form-control" id="sifat"  formControlName="transaksiLelangId" (change)="onSelectRegister($event.target.value)">
-                                        <option>-Pilih-</option>
-                                        <option *ngFor="let data of listTrans; let i = index" [value]="data.id">
-                                            {{data.nomorRisalahLelang}} - {{data.namaPenjual}}
-                                        </option>
-        
-                                    </select>
-                                </div>
+                                 
                                 <div class="form-group col-xl-6 ">
                                     <label for="exampleInputEmail1">Tanggal Risalah Lelang</label>
-                                    <input type="text" class="form-control" [value]="trans.tanggalRisalahLelang?trans.tanggalRisalahLelang:''" disabled>
+                                    <input type="text" class="form-control" [value]="trans.tanggalRisalahLelang?trans.tanggalRisalahLelang.split('T')[0]:''" disabled>
                                 </div>
                                 
                             </div>

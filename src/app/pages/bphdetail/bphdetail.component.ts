@@ -52,5 +52,11 @@ export class BphdetailComponent implements OnInit {
       });
     }
   }
+  formatStatus(status) {
+    switch (status) {
+      case 'Draft Permohonan': return 'Draft'; break;
+      case 'Permohonan Dikirim': return 'Terkirim ke BO'; break;
+    }
+  }
 
 }
