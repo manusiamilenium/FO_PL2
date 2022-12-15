@@ -61,6 +61,7 @@ import { KsdetailComponent } from './pages/ksdetail/ksdetail.component';
 import { KsaddComponent } from './pages/ksadd/ksadd.component';
 import { BolandingComponent } from './pages/bo/bolanding/bolanding.component';
 import { BphlandingComponent } from './pages/bphlanding/bphlanding.component';
+import { BoperiodeComponent } from './pages/bo/boperiode/boperiode.component';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -92,7 +93,7 @@ registerLocaleData(localeEn, 'en-EN');
         ControlSidebarComponent,
         SelectComponent,
         CheckboxComponent,
-        JadwallistComponent,PeriodeComponent,JadwalDetailComponent, TransaksilistComponent, TransaksidetailComponent, TransaksiaddComponent,JadwaladdComponent, BealistComponent, BeadetailComponent, BeatambahComponent, SpinnerComponent, TransaksilandingComponent, BphlistComponent, BphdetailComponent, BphaddComponent, BealandingComponent, KslandingComponent, KslistComponent, KsdetailComponent, KsaddComponent, BolandingComponent, BphlandingComponent
+        JadwallistComponent,PeriodeComponent,JadwalDetailComponent, TransaksilistComponent, TransaksidetailComponent, TransaksiaddComponent,JadwaladdComponent, BealistComponent, BeadetailComponent, BeatambahComponent, SpinnerComponent, TransaksilandingComponent, BphlistComponent, BphdetailComponent, BphaddComponent, BealandingComponent, KslandingComponent, KslistComponent, KsdetailComponent, KsaddComponent, BolandingComponent, BphlandingComponent, BoperiodeComponent
     ],
     imports: [
         BrowserModule,

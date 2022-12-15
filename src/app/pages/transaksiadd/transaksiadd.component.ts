@@ -15,7 +15,7 @@ import { ApiService } from '@services/api.service';
   styleUrls: ['./transaksiadd.component.scss']
 })
 export class TransaksiaddComponent implements OnInit {
-  
+
   public jadwal: any = {}
 
   public isAddMode: boolean
@@ -41,7 +41,7 @@ export class TransaksiaddComponent implements OnInit {
     private router: Router,
     private alamatService: AlamatService,
     private http: HttpClient,
-    private api : ApiService) { }
+    private api: ApiService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -51,15 +51,7 @@ export class TransaksiaddComponent implements OnInit {
     this.isPreview = this.idpreview ? true : false;
     this.isEditMode = this.id ? true : false;
     this.alamatService.getAllProvinsi().subscribe((r) => { this.provinsi = r; this.provinsi1 = r; })
-    this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/JadwalLelang/" + this.idjadwal, this.api.generateHeader()).subscribe((result: any) => {
 
-      this.jadwal = result.data
-      console.log(this.jadwal)
-
-    }, error => {
-
-
-    });
     this.transaksiForm = new UntypedFormGroup({
       jadwalLelangId: new UntypedFormControl(null, Validators.required),
       status: new UntypedFormControl(null, Validators.required),
@@ -104,14 +96,22 @@ export class TransaksiaddComponent implements OnInit {
       beaLelangBatal: new UntypedFormControl(null, Validators.required),
       alasanPembatalan: new UntypedFormControl(null, Validators.required)
     })
-     
+    this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/JadwalLelang/" + this.idjadwal, this.api.generateHeader()).subscribe((result: any) => {
+
+      this.jadwal = result.data
+      console.log(this.jadwal)
+
+    }, error => {
+
+
+    });
     if (this.isEditMode || this.isPreview) {
       const idperiode = this.isEditMode ? this.id : this.idpreview
       this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/TransaksiLelang/" + idperiode, this.api.generateHeader()).subscribe((result: any) => {
 
         this.jadwal = result.data
         console.log(result)
-        //this.idjadwal = this.jadwal.periodeLaporanId
+        this.idjadwal = this.jadwal.jadwalLelangId
         this.transaksiForm.patchValue({
           nomerRegistrasi: this.jadwal.nomerRegistrasi,
           tanggalRegistrasi: this.jadwal.tanggalRegistrasi,
@@ -127,7 +127,7 @@ export class TransaksiaddComponent implements OnInit {
           jadwalLelangId: this.jadwal.jadwalLelangId,
           status: this.jadwal.status,
           nomorRisalahLelang: (isNaN(this.jadwal.nomorRisalahLelang)) ? 0 : this.jadwal.nomorRisalahLelang,
-          tanggalRisalahLelang: this.jadwal.tanggalRisalahLelang,
+          tanggalRisalahLelang: this.jadwal.tanggalRisalahLelang.split('T')[0],
           nikPenjual: this.jadwal.nikPenjual,
           alamatPenjual: this.jadwal.alamatPenjual,
           rtPenjual: this.jadwal.rtPenjual,
@@ -160,7 +160,7 @@ export class TransaksiaddComponent implements OnInit {
           pokokLelang: (isNaN(this.jadwal.pokokLelang)) ? 0 : this.jadwal.pokokLelang,
           beaLelangPenjual: (isNaN(this.jadwal.beaLelangPenjual)) ? 0 : this.jadwal.beaLelangPenjual,
           beaLelangPembeli: (isNaN(this.jadwal.beaLelangPembeli)) ? 0 : this.jadwal.beaLelangPembeli,
-          tanggalPenyerahanKutipanRisalahLelang: this.jadwal.tanggalPenyerahanKutipanRisalahLelang,
+          tanggalPenyerahanKutipanRisalahLelang: this.jadwal.tanggalPenyerahanKutipanRisalahLelang.split('T')[0],
           imbalanJasa: (isNaN(this.jadwal.imbalanJasa)) ? 0 : this.jadwal.imbalanJasa,
           keterangan: this.jadwal.keterangan,
           nomorRegisterPembatalan: (isNaN(this.jadwal.nomorRegisterPembatalan)) ? 0 : this.jadwal.nomorRegisterPembatalan,
@@ -203,27 +203,41 @@ export class TransaksiaddComponent implements OnInit {
 
   }
 
-   
+
   savetransaksi() {
     if (confirm("Apakah anda sudah mengisi data dengan lengkap dan benar?")) {
-      this.http.post("https://pelaporanpliiapi.azurewebsites.net/api/TransaksiLelang", this.generateBodyReq(this.transaksiForm.value), this.api.generateHeader()).subscribe(data => {
-        console.log("post ressult ", data);
-        this.toastr.info("Data Tersimpan")
-        this.router.navigate(['/transaksidetail/' + this.idjadwal]);
+      let url = "https://pelaporanpliiapi.azurewebsites.net/api/TransaksiLelang/" 
+      if (this.isAddMode) {
+        this.http.post(url, this.generateBodyReq(this.transaksiForm.value), this.api.generateHeader()).subscribe(data => {
+          console.log("post ressult ", data);
+          this.toastr.info("Data Tersimpan")
+          this.router.navigate(['/transaksidetail/' + this.idjadwal]);
 
-      }, error => {
-        this.toastr.error("Tidak dapat menyimpan transaksi, Periksa kembali isian Anda");
-        console.log(error);
-      });
+        }, error => {
+          this.toastr.error("Tidak dapat menyimpan transaksi, Periksa kembali isian Anda");
+          console.log(error);
+        });
+      } else {
+        this.http.put(url + this.id, this.generateBodyReq(this.transaksiForm.value), this.api.generateHeader()).subscribe(data => {
+          console.log("post ressult ", data);
+          this.toastr.info("Data Dirubah")
+          this.router.navigate(['/transaksidetail/' + this.idjadwal]);
+
+        }, error => {
+          this.toastr.error("Tidak dapat menyimpan transaksi, Periksa kembali isian Anda");
+          console.log(error);
+        });
+      }
+
     }
   }
-  formatDate(dtstring){
+  formatDate(dtstring) {
     return dtstring.split('T')[0]
   }
   generateBodyReq(formValue: any) {
     let id = this.id === "" ? uuidv4() : this.id
     let bodyreq = {
-      //id: this.id,
+      id: this.id,
       periodeLaporanId: this.jadwal.periodeLaporanId,
       jadwalLelangId: this.idjadwal,
       status: formValue.status,
@@ -255,14 +269,14 @@ export class TransaksiaddComponent implements OnInit {
       tipeBarang: formValue.tipeBarang,
       uraianBarang: formValue.uraianBarang,
       jaminanLelang: formValue.jaminanLelang,
-      jaminanLelangBerupaUang: (isNaN(formValue.jaminanLelangBerupaUang)) ? 0 : formValue.jaminanLelangBerupaUang,
+      jaminanLelangBerupaUang: Number(formValue.jaminanLelangBerupaUang),
       jaminanLelangBankGaransi: formValue.jaminanLelangBankGaransi,
-      nilaiLimit: (isNaN(formValue.nilaiLimit)) ? 0 : formValue.nilaiLimit,
-      pokokLelang: (isNaN(formValue.pokokLelang)) ? 0 : formValue.pokokLelang,
-      beaLelangPenjual: (isNaN(formValue.beaLelangPenjual)) ? 0 : formValue.beaLelangPenjual,
-      beaLelangPembeli: (isNaN(formValue.beaLelangPembeli)) ? 0 : formValue.beaLelangPembeli,
+      nilaiLimit: Number(formValue.nilaiLimit.replace(/[^0-9.-]+/g, "")),
+      pokokLelang: Number(formValue.pokokLelang.replace(/[^0-9.-]+/g, "")),
+      beaLelangPenjual: Number(formValue.beaLelangPenjual.replace(/[^0-9.-]+/g, "")),
+      beaLelangPembeli: Number(formValue.beaLelangPembeli.replace(/[^0-9.-]+/g, "")),
       tanggalPenyerahanKutipanRisalahLelang: formValue.tanggalPenyerahanKutipanRisalahLelang,
-      imbalanJasa: (isNaN(formValue.imbalanJasa)) ? 0 : formValue.imbalanJasa,
+      imbalanJasa: Number(formValue.imbalanJasa.replace(/[^0-9.-]+/g, "")),
       keterangan: formValue.keterangan,
       nomorRegisterPembatalan: (isNaN(formValue.nomorRegisterPembatalan)) ? 0 : formValue.nomorRegisterPembatalan,
       beaLelangBatal: formValue.beaLelangBatal,
@@ -271,7 +285,7 @@ export class TransaksiaddComponent implements OnInit {
 
 
     }
-    console.log(formValue)
+    console.log(bodyreq)
     return bodyreq
 
   }

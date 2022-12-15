@@ -23,8 +23,9 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                     Jadwal Lelang
+                     Jadwal Lelang : {{tahun}}
                 </div>
+                
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="table_search" class="form-control float-right" placeholder="Cari">
@@ -55,26 +56,23 @@
                     <tbody>
                         <div *ngIf="isempty;else other_content">
                             <tr>
-                                <td colspan="7" align="center"> Jadwal kosong silahkan tambah jadwal di menu Jadwal Lelang</td>
+                                <td></td>
+                                <td colspan="8" align="center"> Jadwal Kosong atau belum dikirim ke Back Office, Silahkan cek kembali di menu Jadwal Lelang</td>
                             </tr>
                         </div>
                         <ng-template #other_content>
                         <tr  *ngFor="let data of listJadwal; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{data.nomerRegistrasi}}</td>
-                            <td>{{data.tanggalLelang}}</td> 
+                            <td>{{data.tanggalLelang.split('T')[0]}}</td> 
                             <td>{{data.namaPenjual}}</td>
                             <td>{{data.sifatLelang}}</td>
                             <td>{{data.tempatLelang}}</td>
                             <td>{{data.nomorSuratPenetapanJadwalLelang}}</td>
-                            <td>{{data.tanggalSuratPenetapanJadwalLelang}}</td>
-                            <td>
-                                
-                                <a href="/transaksidetail/{{data.id}}" >
-                                    <app-button class="mb-1" [block]="true" [loading]="false" [disabled]="false"
-                                        [icon]="'blank'">
-                                        Detail Transaksi
-                                    </app-button>
+                            <td>{{data.tanggalSuratPenetapanJadwalLelang.split('T')[0]}}</td>
+                            <td>   
+                                <a href="/transaksidetail/{{data.id}}" > 
+                                    <button type="button" class="btn btn-primary btn-block"> <i class="fa fa-info-circle "></i> Detail</button>
                                 </a>
                             </td>
                         </tr>
@@ -82,6 +80,11 @@
                          
                     </tbody>
                 </table>
+            </div>
+            <div class="card-footer">
+                <a href="/transaksilist" class="btn btn-s"> 
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a> 
             </div>
 
         </div>

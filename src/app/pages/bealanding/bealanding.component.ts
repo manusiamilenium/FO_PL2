@@ -30,6 +30,7 @@ export class BealandingComponent implements OnInit {
     this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/TransaksiLelang", this.api.generateHeader()).subscribe((result: any) => {
       //query are overrated
       this.listTrans = result.data.filter(trans => [this.idperiode].includes(trans.periodeLaporanId))
+      this.listTrans = this.listTrans.filter(trans => ["Permohonan Dikirim"].includes(trans.statusPengiriman))
       console.log(result)
       if (this.listTrans.length > 0) {
         this.isempty = false

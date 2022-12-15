@@ -3,12 +3,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Jadwal Lelang</h1>
+                <h1>Jadwal Lelang periode : {{tahun}}</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Jadwal Lelang Detail : 2022</li>
+                    <li class="breadcrumb-item active">Jadwal Lelang Detail :{{tahun}}</li>
                 </ol>
             </div>
         </div>
@@ -24,9 +24,8 @@
             <div class="card-header">
                 <div class="card-title">
                     <a href="/jadwaladd/periode/{{idperiode}}">
-                        <app-button class="mb-2" [block]="true" [loading]="false" [disabled]="false" [icon]="'blank'">
-                            Tambah Jadwal
-                        </app-button>
+                         
+                        <button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus-circle"></i> Tambah Jadwal</button>
                     </a>
                 </div>
                 <div class="card-tools">
@@ -54,6 +53,7 @@
                             <th>No. Surat Penetapan</th>
                             <th>Tgl. Surat Penetapan</th>
                             <th>Status</th>
+                            <th>Tgl. Submit</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -67,13 +67,14 @@
                             <tr *ngFor="let data of listJadwal; let i = index">
                                 <td>{{i+1}}</td>
                                 <td>{{data.nomerRegistrasi}}</td>
-                                <td>{{data.tanggalLelang}}</td>
+                                <td>{{data.tanggalLelang.split('T')[0]}}</td>
                                 <td>{{data.namaPenjual}}</td>
                                 <td>{{data.sifatLelang}}</td>
                                 <td>{{data.tempatLelang}}</td>
                                 <td>{{data.nomorSuratPenetapanJadwalLelang}}</td>
-                                <td>{{data.tanggalSuratPenetapanJadwalLelang}}</td>
+                                <td>{{data.tanggalSuratPenetapanJadwalLelang.split('T')[0]}}</td>
                                 <td>{{formatStatus(data.statusPengiriman)}}</td>
+                                <td>{{data.recInsert.split('T')[0]}}</td>
                                 <td><a *ngIf="data.statusPengiriman=='Draft Permohonan'" class="btn  btn-s" href="/jadwaladd/{{data.id}}">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>

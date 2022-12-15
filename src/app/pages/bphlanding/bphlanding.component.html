@@ -65,9 +65,9 @@
                             <td>{{data.nomerRegistrasi}}</td>
                             <td>{{data.tanggalRegistrasi}}</td>
                             <td>{{data.nomorRisalahLelang}}</td>
-                            <td>{{data.tanggalRisalahLelang}}</td>
+                            <td>{{data.tanggalRisalahLelang.split('T')[0]}}</td>
                             <td>{{data.namaPenjual}}</td> 
-                            <td>{{data.tanggalLelang}}</td>
+                            <td>{{data.tanggalLelang.split('T')[0]}}</td>
                             <td><a href="/bphdetail/{{data.id}}" class="btn btn-s"> 
                                 <i class="fas fa-inbox"></i> Detail
                             </a>  </td>

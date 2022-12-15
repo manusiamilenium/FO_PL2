@@ -33,6 +33,7 @@ import { KsdetailComponent } from '@pages/ksdetail/ksdetail.component';
 import { KsaddComponent } from '@pages/ksadd/ksadd.component';
 import { BolandingComponent } from '@pages/bo/bolanding/bolanding.component';
 import { BphlandingComponent } from '@pages/bphlanding/bphlanding.component';
+import { BoperiodeComponent } from '@pages/bo/boperiode/boperiode.component';
 
 const routes: Routes = [
     {
@@ -153,6 +154,10 @@ const routes: Routes = [
                 component: BphaddComponent
             },
             {
+                path: 'bphadd/preview/:idpreview',
+                component: BphaddComponent
+            },
+            {
                 path: 'bphlanding/:idperiode',
                 component:BphlandingComponent
             },
@@ -171,6 +176,10 @@ const routes: Routes = [
             {
                 path: 'dash-bo',
                 component: BolandingComponent
+            },
+            {
+                path: 'boperiode/:idjadwal',
+                component: BoperiodeComponent
             },
         ]
     },

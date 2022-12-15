@@ -39,5 +39,23 @@ export class KsdetailComponent implements OnInit {
 
     });
   } 
+  onKirim(idjadwal) {
+    console.log(idjadwal);
+    if (confirm("Apakah anda yakin ingin mengirim data ke PPPK?")) {
+        console.log(idjadwal);
+        const bodyreq = { id: idjadwal }
+        this.http.put("https://pelaporanpliiapi.azurewebsites.net/api/JadwalLelang/Kirim", null, this.api.generateHeaderWithParams(bodyreq)).subscribe(data => {
+            console.log("post ressult ", data);
+            this.toastr.info("Jadwal Terkirim ke P2PK")
+            this.router.navigate(['/jadwaldetail/' + this.idperiode]);
+            //this.loadJadwal()
+
+        }, error => {
+            this.toastr.error("Tidak dapat mengirim data, Periksa kembali data Anda");
+            console.log(error);
+        });
+    }
+}
+
 
 }

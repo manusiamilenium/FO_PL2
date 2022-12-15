@@ -50,7 +50,7 @@
                             <th>Status Lelang</th>
                             <th>Status Data</th>
                             <th>No Register </th>
-                            <th>Tgl. Register </th>
+                             
                             <th>No. Risalah</th>
                             <th>Tanggal Risalah</th>
                             <th>Penjual</th>
@@ -71,12 +71,11 @@
                             <td>{{data.status}}</td>
                             <td>{{formatStatus(data.statusPengiriman)}}</td>
                             <td>{{data.noRegisterLelang}}</td>
-                            <td>{{data.tanggalLelang}}</td>
                             <td>{{data.nomorRisalahLelang}}</td>
-                            <td>{{data.tanggalRisalahLelang}}</td>
+                            <td>{{data.tanggalRisalahLelang.split('T')[0]}}</td>
                             <td>{{data.namaPenjual}}</td>
-                            <td>{{data.tanggalLelang}}</td>
-                            <td>{{data.tanggalPenyerahanKutipanRisalahLelang}}</td>
+                            <td>{{data.tanggalLelang.split('T')[0]}}</td>
+                            <td>{{data.tanggalPenyerahanKutipanRisalahLelang.split('T')[0]}}</td>
                             <td>
                                 <a *ngIf="data.statusPengiriman=='Draft Permohonan'" class="btn  btn-s" href="/transaksiadd/{{data.id}}">
                                     <i class="fas fa-edit"></i> Edit

@@ -31,6 +31,7 @@ export class BolandingComponent implements OnInit {
       this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/JadwalLelang/P2PK/", this.api.generateHeader()).subscribe((result: any) => {
 
           this.listJadwal = result.data 
+          this.listJadwal = this.listJadwal.filter(trans => ["Permohonan Dikirim"].includes(trans.statusPengiriman))
           console.log(result)
           if (this.listJadwal.length > 0) {
               this.isempty = false
@@ -48,13 +49,13 @@ export class BolandingComponent implements OnInit {
    
   onKirim(idjadwal) {
       console.log(idjadwal);
-      if (confirm("Apakah anda yakin ingin mengirim data ke PPPK?")) {
+      if (confirm("Apakah anda yakin ingin Buka Akses?")) {
           console.log(idjadwal);
           const bodyreq = { id: idjadwal }
-          this.http.put("https://pelaporanpliiapi.azurewebsites.net/api/JadwalLelang/Kirim", null,this.api.generateHeaderWithParams(bodyreq)).subscribe(data => {
+          this.http.put("https://pelaporanpliiapi.azurewebsites.net/api/JadwalLelang/P2PK/BukaAkses/", null,this.api.generateHeaderWithParams(bodyreq)).subscribe(data => {
               console.log("post ressult ", data);
               this.toastr.info("Jadwal Terkirim ke P2PK")
-              this.router.navigate(['/jadwaldetail/' + this.idperiode]);
+              this.router.navigate(['/dash-bo/']);
               this.loadJadwal()
 
           }, error => {

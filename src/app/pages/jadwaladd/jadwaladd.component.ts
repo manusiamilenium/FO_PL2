@@ -54,16 +54,16 @@ export class JadwaladdComponent implements OnInit {
                 this.idperiode = this.jadwal.periodeLaporanId
                 this.jadwalForm.patchValue({
                     nomerRegistrasi: this.jadwal.nomerRegistrasi,
-                    tanggalRegistrasi: this.jadwal.tanggalRegistrasi,
-                    tanggalLelang: this.jadwal.tanggalLelang,
+                    tanggalRegistrasi: this.jadwal.tanggalRegistrasi.split('T')[0],
+                    tanggalLelang: this.jadwal.tanggalLelang.split('T')[0],
                     namaPenjual: this.jadwal.namaPenjual,
                     klasifikasiPenjual: this.jadwal.klasifikasiPenjual,
                     nomorSuratPermohonan: this.jadwal.nomorSuratPermohonan,
-                    tanggalSuratPermohonan: this.jadwal.tanggalSuratPermohonan,
+                    tanggalSuratPermohonan: this.jadwal.tanggalSuratPermohonan.split('T')[0],
                     tempatLelang: this.jadwal.tempatLelang,
                     sifatLelang: this.jadwal.sifatLelang,
                     nomorSuratPenetapanJadwalLelang: this.jadwal.nomorSuratPenetapanJadwalLelang,
-                    tanggalSuratPenetapanJadwalLelang: this.jadwal.tanggalSuratPenetapanJadwalLelang
+                    tanggalSuratPenetapanJadwalLelang: this.jadwal.tanggalSuratPenetapanJadwalLelang.split('T')[0]
                 })
  
             }, error => {
@@ -109,9 +109,10 @@ export class JadwaladdComponent implements OnInit {
         return bodyreq
 
     }
+     
     onSubmit() {
         if (confirm("Apakah anda sudah mengisi data dengan lengkap dan benar?")) {
-            let url = "https://pelaporanpliiapi.azurewebsites.net/api/JadwalLelang"
+            let url = "https://pelaporanpliiapi.azurewebsites.net/api/JadwalLelang/"
             if (this.isAddMode) {
                 this.http.post(url, this.generateBodyReq(this.jadwalForm.value), this.api.generateHeader()).subscribe(data => {
                     console.log("post ressult ", data);

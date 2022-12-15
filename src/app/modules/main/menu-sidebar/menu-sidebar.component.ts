@@ -29,40 +29,40 @@ export class MenuSidebarComponent implements OnInit {
         });
         this.user = this.AuthService.user;
         let role = this.AuthService.getRole();
-        console.log(this.menu,role)
+        console.log(this.menu, this.user)
         if (role.toString() == "UserPLII"){
             this.menu = [
                 
                         {
-                            name: 'Dashboard',
-                            iconClasses: 'far fa-address-book',
+                            name: 'Home',
+                            iconClasses: 'fas fa-home',
                             path: ['/']
                         },
                          
                         {
                             name: 'Jadwal Lelang',
-                            iconClasses: 'far fa-address-book',
+                            iconClasses: 'fas fa-calendar',
                             path: ['/jadwallist']
                         },
             
                         {
                             name: 'Transaksi Lelang',
-                            iconClasses: 'fas fa-file',
+                            iconClasses: 'fas fa-book',
                             path: ['/transaksilist']
                         },
                         {
                             name: 'Penyetoran Bea',
-                            iconClasses: 'fas fa-file',
+                            iconClasses: 'fas fa-credit-card',
                             path: ['/bealist']
                         },
                         {
                             name: 'Penyetoran BPHTB',
-                            iconClasses: 'fas fa-file',
+                            iconClasses: 'fas fa-building',
                             path: ['/bphlist']
                         },
                         {
                             name: 'Kertas Sekuriti',
-                            iconClasses: 'fas fa-file',
+                            iconClasses: 'fas fa-lock ',
                             path: ['/kslist']
                         }
             ]
