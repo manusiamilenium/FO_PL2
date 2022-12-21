@@ -25,7 +25,6 @@ export class JadwalDetailComponent {
     }
     ngOnInit(): void {
         this.idperiode = this.route.snapshot.params['idperiode'];
-
         this.loadJadwal()
     }
     loadJadwal() {

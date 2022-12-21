@@ -59,13 +59,43 @@ export class BeatambahComponent implements OnInit {
 
     });
 
+    
+    if (this.isEditMode || this.isPreview) {
+      const id = this.isEditMode ? this.id : this.idpreview
+      this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/LaporanPenyetoranBeaLelang/" + id, this.api.generateHeader()).subscribe((result: any) => {
+
+        this.bea = result.data
+        console.log("bea",this.bea )
+        this.idtrans = this.bea.transaksiLelangId
+        this.beaForm.patchValue({
+          transaksiLelangId: this.bea.transaksiLelangId,
+          pokokLelang: this.bea.pokokLelang,
+          jenisTransaksi: this.bea.jenisTransaksi,
+          nomorTransaksi: this.bea.nomorTransaksi,
+          //fileJenisTransaksi: this.bea.fileJenisTransaksi,
+          nomorBPN: this.bea.nomorBPN,
+          kodeMAP: this.bea.kodeMAP,
+          tanggalPenyetoran: this.bea.tanggalPenyetoran.split('T')[0],
+          keterangan: this.bea.keterangan
+        })
+        this.responseUpload = {data:this.bea.fileJenisTransaksi}
+
+      }, error => {
+
+      });
+
+      if (this.isPreview) {
+        this.beaForm.disable()
+      }
+    } 
+      
     this.loadTrans()
+    
 
   }
 
   loadTrans() {
     this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/TransaksiLelang/" + this.idtrans, this.api.generateHeader()).subscribe((result: any) => {
-
       this.trans = result.data
       console.log(this.trans)
     }, error => { })

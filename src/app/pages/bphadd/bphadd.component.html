@@ -23,7 +23,9 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Risalah BPHTB</h3>
+                <a href="/bphdetail/{{idtrans}}" class="btn btn-s"> 
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a> 
 
             </div>
             <form  [formGroup]="bphForm">
@@ -64,11 +66,11 @@
                             
                             <div class="row">
                                 <div class="form-group col-xl-6 ">
-                                    <label for="exampleInputEmail1">Lattitude Tanah / Bangunan</label>
+                                    <label for="exampleInputEmail1">Lattitude Tanah / Bangunan (Contoh Latitude: -6.193125)</label>
                                     <input type="text" class="form-control"  formControlName="letaktanahBangunanLat" >
                                 </div>
                                 <div class="form-group col-xl-6 ">
-                                    <label for="exampleInputEmail1">Longitude Tanah / Bangunan</label>
+                                    <label for="exampleInputEmail1">Longitude Tanah / Bangunan (Contoh Longitude: 106.821810)</label>
                                     <input type="text" class="form-control" formControlName="letaktanahBangunanLong">
                                 </div>
                             </div>
@@ -335,7 +337,7 @@
             </form>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button type="button" (click)="savetransaksi()" class="btn btn-primary">Simpan Risalah BPHTB</button>
+                <button type="button" *ngIf="!this.isPreview" (click)="savetransaksi()" class="btn btn-primary">Simpan Risalah BPHTB</button>
             </div>
             <!-- /.card-footer-->
         </div>

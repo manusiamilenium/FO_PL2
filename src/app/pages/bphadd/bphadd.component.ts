@@ -62,23 +62,40 @@ export class BphaddComponent implements OnInit {
     });
     this.onSelectRegister(this.idtrans)
 
-    /*
-    "transaksiLelangId": "string",
-  "lot": 0,
-  "letaktanahBangunanLong": "string",
-  "letaktanahBangunanLat": "string",
-  "statusHakAtasTanah": "string",
-  "luasTanah": 0,
-  "luasBangunan": 0,
-  "njopnop": 0,
-  "pokokLelang": 0,
-  "nomorSSB": 0,
-  "tanggalSSB": "2022-12-08T20:26:30.318Z",
-  "nomorSSP": 0,
-  "tanggalSSP": "2022-12-08T20:26:30.318Z",
-  "tanggalPenyampaianPetikanRisalahRapat": "2022-12-08T20:26:30.318Z",
-  "keterangan": "string"
-  */
+    if (this.isEditMode || this.isPreview) {
+      const id = this.isEditMode ? this.id : this.idpreview
+      this.http.get("https://pelaporanpliiapi.azurewebsites.net/api/LaporanRisalahLelangPengenaanBPHTB/" + id, this.api.generateHeader()).subscribe((result: any) => {
+
+        this.bph = result.data
+        console.log("bph", this.bph)
+        this.idtrans = this.bph.transaksiLelangId
+        this.bphForm.patchValue({
+          lot: this.bph.lot,
+          letaktanahBangunanLong: this.bph.letaktanahBangunanLong,
+          letaktanahBangunanLat: this.bph.letaktanahBangunanLat,
+          statusHakAtasTanah: this.bph.statusHakAtasTanah,
+          luasTanah: this.bph.luasTanah,
+          luasBangunan: this.bph.luasBangunan,
+          njopnop: this.bph.njopnop,
+          pokokLelang: this.bph.pokokLelang,
+          nomorSSB: this.bph.nomorSSB,
+          tanggalSSB: this.bph.tanggalSSB.split('T')[0],
+          nomorSSP: this.bph.nomorSSP,
+          tanggalSSP: this.bph.tanggalSSP.split('T')[0],
+          tanggalPenyampaianPetikanRisalahRapat: this.bph.tanggalPenyampaianPetikanRisalahRapat.split('T')[0],
+          keterangan: this.bph.keterangan,
+
+        })
+
+
+      }, error => {
+
+      });
+
+      if (this.isPreview) {
+        this.bphForm.disable()
+      }
+    } 
 
   }
   savetransaksi() {

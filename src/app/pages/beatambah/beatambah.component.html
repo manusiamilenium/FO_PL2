@@ -22,7 +22,10 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Tambah Bea Lelang </h3>
+                <a href="/beadetail/{{idtrans}}" class="btn btn-s"> 
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a> 
+            
 
 
             </div>
@@ -131,7 +134,8 @@
             </form>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button type="button" (click)="savetransaksi()" class="btn btn-primary">Tambah Bea Lelang</button>
+                
+                <button *ngIf="!this.isPreview" type="button" (click)="savetransaksi()" class="btn btn-primary">Tambah Bea Lelang</button>
             </div>
             <!-- /.card-footer-->
         </div>
